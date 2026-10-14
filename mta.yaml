@@ -1,0 +1,154 @@
+_schema-version: 3.3.0
+ID: SAP_CAPM_FIORI_SPRINT
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+  deploy_mode: html5-repo
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+modules:
+  - name: SAP_CAPM_FIORI_SPRINT-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: SAP_CAPM_FIORI_SPRINT-auth
+      - name: SAP_CAPM_FIORI_SPRINT-db
+      - name: SAP_CAPM_FIORI_SPRINT-connectivity
+      - name: SAP_CAPM_FIORI_SPRINT-destination
+      - name: SAP_CAPM_FIORI_SPRINT-logging
+      - name: SAP_CAPM_FIORI_SPRINT-auditlog
+
+  - name: SAP_CAPM_FIORI_SPRINT-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: SAP_CAPM_FIORI_SPRINT-db
+  - name: SAP_CAPM_FIORI_SPRINT
+    type: approuter.nodejs
+    path: .deploy/app-router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: SAP_CAPM_FIORI_SPRINT-auth
+      - name: SAP_CAPM_FIORI_SPRINT-destination
+      - name: SAP_CAPM_FIORI_SPRINT-html5-runtime
+      - name: SAP_CAPM_FIORI_SPRINT-portal
+      - name: SAP_CAPM_FIORI_SPRINT-logging
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
+
+  - name: SAP_CAPM_FIORI_SPRINT-portal-deployer
+    type: com.sap.application.content
+    path: app/portal
+    requires:
+      - name: SAP_CAPM_FIORI_SPRINT-portal
+        parameters:
+          content-target: true
+          service-key:
+            name: SAP_CAPM_FIORI_SPRINT-portal-key
+            config:
+              content-endpoint: developer
+      - name: SAP_CAPM_FIORI_SPRINT-auth
+      - name: SAP_CAPM_FIORI_SPRINT-html5-repo-host
+  - name: notification-content-deployment
+    type: nodejs
+    path: gen/srv
+    parameters:
+      no-route: true
+      no-start: true
+      memory: 256MB
+      disk-quota: 1GB
+      tasks:
+        - name: notification-content-deployment
+          command: "node node_modules/@cap-js/notifications/lib/content-deployment.js"
+          memory: 256MB
+          disk-quota: 1GB
+    requires:
+      - name: SAP_CAPM_FIORI_SPRINT-destination
+
+resources:
+  - name: SAP_CAPM_FIORI_SPRINT-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: SAP_CAPM_FIORI_SPRINT-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
+          redirect-uris:
+            - https://*~{app-api/app-uri}/**
+    requires:
+      - name: app-api
+  - name: SAP_CAPM_FIORI_SPRINT-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: SAP_CAPM_FIORI_SPRINT-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
+  - name: SAP_CAPM_FIORI_SPRINT-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+
+  - name: SAP_CAPM_FIORI_SPRINT-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: SAP_CAPM_FIORI_SPRINT-html5-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+  - name: SAP_CAPM_FIORI_SPRINT-portal
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: portal
+      service-plan: standard
+  - name: SAP_CAPM_FIORI_SPRINT-logging
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: standard
+  - name: SAP_CAPM_FIORI_SPRINT-auditlog
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: auditlog
+      service-plan: premium
