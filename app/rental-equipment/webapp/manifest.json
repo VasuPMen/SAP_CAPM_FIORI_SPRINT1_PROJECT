@@ -27,6 +27,7 @@
     }
   },
   "sap.ui5": {
+    "flexEnabled": true,
     "dependencies": {
       "minUI5Version": "1.120.0",
       "libs": {
@@ -47,61 +48,26 @@
       }
     },
     "routing": {
-      "config": {
-        "routerClass": "sap.f.routing.Router",
-        "async": true
-      },
+      "config": {},
       "routes": [
-        {
-          "pattern": ":?query:",
-          "name": "FleetOverview",
-          "target": "FleetOverview"
-        },
-        {
-          "pattern": "Equipment({key}):?query:",
-          "name": "AssetDetail",
-          "target": "AssetDetail"
-        },
-        {
-          "pattern": "Customers:?query:",
-          "name": "Customers",
-          "target": "Customers"
-        },
-        {
-          "pattern": "Rentals:?query:",
-          "name": "Rentals",
-          "target": "Rentals"
-        },
-        {
-          "pattern": "ConditionLogs:?query:",
-          "name": "InspectionReview",
-          "target": "InspectionReview"
-        },
-        {
-          "pattern": "DamageRecords:?query:",
-          "name": "DamageChargeApproval",
-          "target": "DamageChargeApproval"
-        },
-        {
-          "pattern": "MaintenanceRecords:?query:",
-          "name": "MaintenancePlanner",
-          "target": "MaintenancePlanner"
-        },
-        {
-          "pattern": "RepairBills:?query:",
-          "name": "RepairJobs",
-          "target": "RepairJobs"
-        },
-        {
-          "pattern": "PricingRules:?query:",
-          "name": "Configuration",
-          "target": "Configuration"
-        },
-        {
-          "pattern": "OutboxMessages:?query:",
-          "name": "IntegrationMonitor",
-          "target": "IntegrationMonitor"
-        }
+        { "pattern": ":?query:", "name": "FleetOverview", "target": "FleetOverview" },
+        { "pattern": "Equipment({key}):?query:", "name": "AssetDetail", "target": "AssetDetail" },
+        { "pattern": "Customers:?query:", "name": "Customers", "target": "Customers" },
+        { "pattern": "Customers({key}):?query:", "name": "CustomerObjectPage", "target": "CustomerObjectPage" },
+        { "pattern": "Rentals:?query:", "name": "Rentals", "target": "Rentals" },
+        { "pattern": "Rentals({key}):?query:", "name": "RentalObjectPage", "target": "RentalObjectPage" },
+        { "pattern": "ConditionLogs:?query:", "name": "InspectionReview", "target": "InspectionReview" },
+        { "pattern": "ConditionLogs({key}):?query:", "name": "InspectionObjectPage", "target": "InspectionObjectPage" },
+        { "pattern": "DamageRecords:?query:", "name": "DamageChargeApproval", "target": "DamageChargeApproval" },
+        { "pattern": "DamageRecords({key}):?query:", "name": "DamageObjectPage", "target": "DamageObjectPage" },
+        { "pattern": "MaintenanceRecords:?query:", "name": "MaintenancePlanner", "target": "MaintenancePlanner" },
+        { "pattern": "MaintenanceRecords({key}):?query:", "name": "MaintenanceObjectPage", "target": "MaintenanceObjectPage" },
+        { "pattern": "RepairBills:?query:", "name": "RepairJobs", "target": "RepairJobs" },
+        { "pattern": "RepairBills({key}):?query:", "name": "RepairObjectPage", "target": "RepairObjectPage" },
+        { "pattern": "PricingRules:?query:", "name": "Configuration", "target": "Configuration" },
+        { "pattern": "PricingRules({key}):?query:", "name": "PricingObjectPage", "target": "PricingObjectPage" },
+        { "pattern": "OutboxMessages:?query:", "name": "IntegrationMonitor", "target": "IntegrationMonitor" },
+        { "pattern": "OutboxMessages({key}):?query:", "name": "IntegrationObjectPage", "target": "IntegrationObjectPage" }
       ],
       "targets": {
         "FleetOverview": {
@@ -111,7 +77,23 @@
           "options": {
             "settings": {
               "contextPath": "/Equipment",
-              "variantManagement": "Page"
+              "variantManagement": "Page",
+              "initialLoad": true,
+              "navigation": {
+                "Equipment": {
+                  "detail": {
+                    "route": "AssetDetail"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "Single"
+                  }
+                }
+              }
             }
           }
         },
@@ -133,9 +115,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Customers"
+              "contextPath": "/Customers",
+              "initialLoad": true,
+              "navigation": { "Customers": { "detail": { "route": "CustomerObjectPage" } } }
             }
           }
+        },
+        "CustomerObjectPage": {
+          "type": "Component",
+          "id": "CustomerObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/Customers", "editableHeaderContent": false } }
         },
         "Rentals": {
           "type": "Component",
@@ -143,9 +133,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Rentals"
+              "contextPath": "/Rentals",
+              "initialLoad": true,
+              "navigation": { "Rentals": { "detail": { "route": "RentalObjectPage" } } }
             }
           }
+        },
+        "RentalObjectPage": {
+          "type": "Component",
+          "id": "RentalObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/Rentals", "sectionLayout": "Tabs" } }
         },
         "InspectionReview": {
           "type": "Component",
@@ -153,9 +151,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/ConditionLogs"
+              "contextPath": "/ConditionLogs",
+              "initialLoad": true,
+              "navigation": { "ConditionLogs": { "detail": { "route": "InspectionObjectPage" } } }
             }
           }
+        },
+        "InspectionObjectPage": {
+          "type": "Component",
+          "id": "InspectionObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/ConditionLogs", "sectionLayout": "Tabs" } }
         },
         "DamageChargeApproval": {
           "type": "Component",
@@ -163,9 +169,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/DamageRecords"
+              "contextPath": "/DamageRecords",
+              "initialLoad": true,
+              "navigation": { "DamageRecords": { "detail": { "route": "DamageObjectPage" } } }
             }
           }
+        },
+        "DamageObjectPage": {
+          "type": "Component",
+          "id": "DamageObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/DamageRecords", "sectionLayout": "Tabs" } }
         },
         "MaintenancePlanner": {
           "type": "Component",
@@ -173,9 +187,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/MaintenanceRecords"
+              "contextPath": "/MaintenanceRecords",
+              "initialLoad": true,
+              "navigation": { "MaintenanceRecords": { "detail": { "route": "MaintenanceObjectPage" } } }
             }
           }
+        },
+        "MaintenanceObjectPage": {
+          "type": "Component",
+          "id": "MaintenanceObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/MaintenanceRecords", "sectionLayout": "Tabs" } }
         },
         "RepairJobs": {
           "type": "Component",
@@ -183,9 +205,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/RepairBills"
+              "contextPath": "/RepairBills",
+              "initialLoad": true,
+              "navigation": { "RepairBills": { "detail": { "route": "RepairObjectPage" } } }
             }
           }
+        },
+        "RepairObjectPage": {
+          "type": "Component",
+          "id": "RepairObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/RepairBills", "sectionLayout": "Tabs" } }
         },
         "Configuration": {
           "type": "Component",
@@ -193,9 +223,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/PricingRules"
+              "contextPath": "/PricingRules",
+              "initialLoad": true,
+              "navigation": { "PricingRules": { "detail": { "route": "PricingObjectPage" } } }
             }
           }
+        },
+        "PricingObjectPage": {
+          "type": "Component",
+          "id": "PricingObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/PricingRules" } }
         },
         "IntegrationMonitor": {
           "type": "Component",
@@ -203,9 +241,17 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/OutboxMessages"
+              "contextPath": "/OutboxMessages",
+              "initialLoad": true,
+              "navigation": { "OutboxMessages": { "detail": { "route": "IntegrationObjectPage" } } }
             }
           }
+        },
+        "IntegrationObjectPage": {
+          "type": "Component",
+          "id": "IntegrationObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/OutboxMessages" } }
         }
       }
     },
@@ -216,5 +262,10 @@
   },
   "sap.fiori": {
     "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
   }
 }
