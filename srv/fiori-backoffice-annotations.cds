@@ -1,5 +1,46 @@
 using { AnalyticsService } from './service';
 
+annotate AnalyticsService.Equipment with @(
+    UI.HeaderInfo: {
+        TypeName: 'Equipment',
+        TypeNamePlural: 'Equipment',
+        Title: { $Type: 'UI.DataField', Value: equipmentName },
+        Description: { $Type: 'UI.DataField', Value: serialNumber }
+    },
+    UI.SelectionFields: [equipmentName, equipmentType, manufacturer, model, currentStatus, currentGrade, serialNumber],
+    UI.LineItem: [
+        { $Type: 'UI.DataField', Value: equipmentName, Label: 'Equipment' },
+        { $Type: 'UI.DataField', Value: equipmentType, Label: 'Type' },
+        { $Type: 'UI.DataField', Value: manufacturer, Label: 'Manufacturer' },
+        { $Type: 'UI.DataField', Value: model, Label: 'Model' },
+        { $Type: 'UI.DataField', Value: serialNumber, Label: 'Serial Number' },
+        { $Type: 'UI.DataField', Value: currentStatus, Label: 'Status' },
+        { $Type: 'UI.DataField', Value: currentGrade, Label: 'Condition Grade' },
+        { $Type: 'UI.DataField', Value: rentalRatePerDay, Label: 'Daily Rental Rate' },
+        { $Type: 'UI.DataField', Value: custodian, Label: 'Custodian' }
+    ],
+    UI.Facets: [
+        { $Type: 'UI.ReferenceFacet', Label: 'Equipment Details', Target: '@UI.FieldGroup#EquipmentDetails' },
+        { $Type: 'UI.ReferenceFacet', Label: 'Condition Logs', Target: 'conditionLogs/@UI.LineItem' },
+        { $Type: 'UI.ReferenceFacet', Label: 'Maintenance', Target: 'maintenance/@UI.LineItem' },
+        { $Type: 'UI.ReferenceFacet', Label: 'Transfers', Target: 'transfers/@UI.LineItem' }
+    ],
+    UI.FieldGroup #EquipmentDetails: {
+        Data: [
+            { $Type: 'UI.DataField', Value: equipmentName, Label: 'Equipment' },
+            { $Type: 'UI.DataField', Value: equipmentType, Label: 'Type' },
+            { $Type: 'UI.DataField', Value: manufacturer, Label: 'Manufacturer' },
+            { $Type: 'UI.DataField', Value: model, Label: 'Model' },
+            { $Type: 'UI.DataField', Value: serialNumber, Label: 'Serial Number' },
+            { $Type: 'UI.DataField', Value: purchaseDate, Label: 'Purchase Date' },
+            { $Type: 'UI.DataField', Value: rentalRatePerDay, Label: 'Daily Rental Rate' },
+            { $Type: 'UI.DataField', Value: currentStatus, Label: 'Status' },
+            { $Type: 'UI.DataField', Value: currentGrade, Label: 'Condition Grade' },
+            { $Type: 'UI.DataField', Value: barcode, Label: 'Barcode' }
+        ]
+    }
+);
+
 annotate AnalyticsService.Customers with @(
     UI.HeaderInfo: {
         TypeName: 'Customer',
