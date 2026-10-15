@@ -86,6 +86,19 @@
                   }
                 }
               },
+              "views": {
+                "paths": [
+                  {
+                    "key": "fleetChart",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#FleetStatusPV"
+                  },
+                  {
+                    "key": "fleetTable",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+                  }
+                ],
+                "showCounts": false
+              },
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
