@@ -3,36 +3,25 @@
   "sap.app": {
     "id": "rental.equipment",
     "type": "application",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
+    "applicationVersion": { "version": "1.0.0" },
     "title": "Rental Equipment Management",
-    "description": "Equipment Rental, Inspection, Maintenance and Billing",
+    "description": "Rental Equipment Tracking, Inspection, Maintenance and Billing",
     "dataSources": {
       "mainService": {
         "uri": "/analytics/",
         "type": "OData",
-        "settings": {
-          "odataVersion": "4.0"
-        }
+        "settings": { "odataVersion": "4.0" }
       }
     }
   },
   "sap.ui": {
     "technology": "UI5",
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
   },
   "sap.ui5": {
     "dependencies": {
       "minUI5Version": "1.120.0",
-      "libs": {
-        "sap.ui.core": {},
-        "sap.fe.templates": {}
-      }
+      "libs": { "sap.ui.core": {}, "sap.fe.templates": {} }
     },
     "models": {
       "": {
@@ -48,60 +37,49 @@
     },
     "routing": {
       "routes": [
-        {
-          "pattern": ":?query:",
-          "name": "EquipmentListReport",
-          "target": "EquipmentListReport"
-        },
-        {
-          "pattern": "Equipment({key}):?query:",
-          "name": "EquipmentObjectPage",
-          "target": "EquipmentObjectPage"
-        }
+        { "pattern": ":?query:", "name": "FleetOverview", "target": "FleetOverview" },
+        { "pattern": "Equipment({key}):?query:", "name": "AssetDetail", "target": "AssetDetail" },
+        { "pattern": "Customers:?query:", "name": "Customers", "target": "Customers" },
+        { "pattern": "Rentals:?query:", "name": "Rentals", "target": "Rentals" },
+        { "pattern": "ConditionLogs:?query:", "name": "InspectionReview", "target": "InspectionReview" },
+        { "pattern": "DamageRecords:?query:", "name": "DamageChargeApproval", "target": "DamageChargeApproval" },
+        { "pattern": "MaintenanceRecords:?query:", "name": "MaintenancePlanner", "target": "MaintenancePlanner" },
+        { "pattern": "RepairBills:?query:", "name": "RepairJobs", "target": "RepairJobs" },
+        { "pattern": "PricingRules:?query:", "name": "Configuration", "target": "Configuration" },
+        { "pattern": "OutboxMessages:?query:", "name": "IntegrationMonitor", "target": "IntegrationMonitor" }
       ],
       "targets": {
-        "EquipmentListReport": {
+        "FleetOverview": {
           "type": "Component",
-          "id": "EquipmentListReport",
+          "id": "FleetOverview",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
               "contextPath": "/Equipment",
               "variantManagement": "Page",
-              "navigation": {
-                "Equipment": {
-                  "detail": {
-                    "route": "EquipmentObjectPage"
-                  }
-                }
-              },
-              "tableSettings": {
-                "type": "ResponsiveTable",
-                "selectionMode": "Single"
-              }
+              "tableSettings": { "type": "ResponsiveTable", "selectionMode": "Single" }
             }
           }
         },
-        "EquipmentObjectPage": {
+        "AssetDetail": {
           "type": "Component",
-          "id": "EquipmentObjectPage",
+          "id": "AssetDetail",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
-            "settings": {
-              "contextPath": "/Equipment",
-              "editableHeaderContent": false,
-              "sectionLayout": "Tabs"
-            }
+            "settings": { "contextPath": "/Equipment", "editableHeaderContent": false, "sectionLayout": "Tabs" }
           }
-        }
+        },
+        "Customers": { "type": "Component", "id": "Customers", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/Customers" } } },
+        "Rentals": { "type": "Component", "id": "Rentals", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/Rentals" } } },
+        "InspectionReview": { "type": "Component", "id": "InspectionReview", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/ConditionLogs" } } },
+        "DamageChargeApproval": { "type": "Component", "id": "DamageChargeApproval", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/DamageRecords" } } },
+        "MaintenancePlanner": { "type": "Component", "id": "MaintenancePlanner", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/MaintenanceRecords" } } },
+        "RepairJobs": { "type": "Component", "id": "RepairJobs", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/RepairBills" } } },
+        "Configuration": { "type": "Component", "id": "Configuration", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/PricingRules" } } },
+        "IntegrationMonitor": { "type": "Component", "id": "IntegrationMonitor", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/OutboxMessages" } } }
       }
     },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    }
+    "contentDensities": { "compact": true, "cozy": true }
   },
-  "sap.fiori": {
-    "archeType": "transactional"
-  }
+  "sap.fiori": { "archeType": "transactional" }
 }
