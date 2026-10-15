@@ -16,12 +16,10 @@ service RentalService {
 @impl: './service/inspection-service.cjs'
 service InspectionService {
     entity Equipment as projection on db.Equipment;
-    entity ConditionLogs as projection on db.ConditionLogs {
-        *,
+    entity ConditionLogs as projection on db.ConditionLogs { * }
         actions {
-            lockInspection(reason : String(255)) returns Boolean;
-        }
-    };
+            action lockInspection(reason : String(255)) returns Boolean;
+        };
     entity DamageRecords as projection on db.DamageRecords;
     entity DamagePhotos as projection on db.DamagePhotos;
 }
@@ -40,15 +38,13 @@ service BillingService {
     entity Rentals as projection on db.Rentals;
     entity Equipment as projection on db.Equipment;
     entity DamageRecords as projection on db.DamageRecords;
-    entity RepairBills as projection on db.RepairBills {
-        *,
+    entity RepairBills as projection on db.RepairBills { * }
         actions {
-            approve(reason : String(255)) returns Boolean;
-            adjust(amount : Money, reason : String(255)) returns Boolean;
-            reject(reason : String(255)) returns Boolean;
-            dispute(reason : String(255)) returns Boolean;
-        }
-    };
+            action approve(reason : String(255)) returns Boolean;
+            action adjust(amount : Decimal(15,2), reason : String(255)) returns Boolean;
+            action reject(reason : String(255)) returns Boolean;
+            action dispute(reason : String(255)) returns Boolean;
+        };
     entity PricingRules as projection on db.PricingRules;
 }
 
@@ -68,10 +64,8 @@ service AnalyticsService {
     entity MaintenanceRecords as projection on db.MaintenanceRecords;
     entity RepairBills as projection on db.RepairBills;
     entity PricingRules as projection on db.PricingRules;
-    entity OutboxMessages as projection on db.OutboxMessages {
-        *,
+    entity OutboxMessages as projection on db.OutboxMessages { * }
         actions {
-            retry() returns Boolean;
-        }
-    };
+            action retry() returns Boolean;
+        };
 }
