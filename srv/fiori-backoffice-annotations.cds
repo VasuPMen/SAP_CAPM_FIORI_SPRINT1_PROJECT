@@ -1,12 +1,7 @@
 using { AnalyticsService } from './service';
 
 annotate AnalyticsService.Equipment with @(
-    UI.HeaderInfo: {
-        TypeName: 'Equipment',
-        TypeNamePlural: 'Equipment',
-        Title: { $Type: 'UI.DataField', Value: equipmentName },
-        Description: { $Type: 'UI.DataField', Value: serialNumber }
-    },
+    UI.HeaderInfo: { TypeName: 'Equipment', TypeNamePlural: 'Equipment', Title: { $Type: 'UI.DataField', Value: equipmentName }, Description: { $Type: 'UI.DataField', Value: serialNumber } },
     UI.SelectionFields: [equipmentName, equipmentType, manufacturer, model, currentStatus, currentGrade, serialNumber],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: equipmentName, Label: 'Equipment' },
@@ -25,29 +20,22 @@ annotate AnalyticsService.Equipment with @(
         { $Type: 'UI.ReferenceFacet', Label: 'Maintenance', Target: 'maintenance/@UI.LineItem' },
         { $Type: 'UI.ReferenceFacet', Label: 'Transfers', Target: 'transfers/@UI.LineItem' }
     ],
-    UI.FieldGroup #EquipmentDetails: {
-        Data: [
-            { $Type: 'UI.DataField', Value: equipmentName, Label: 'Equipment' },
-            { $Type: 'UI.DataField', Value: equipmentType, Label: 'Type' },
-            { $Type: 'UI.DataField', Value: manufacturer, Label: 'Manufacturer' },
-            { $Type: 'UI.DataField', Value: model, Label: 'Model' },
-            { $Type: 'UI.DataField', Value: serialNumber, Label: 'Serial Number' },
-            { $Type: 'UI.DataField', Value: purchaseDate, Label: 'Purchase Date' },
-            { $Type: 'UI.DataField', Value: rentalRatePerDay, Label: 'Daily Rental Rate' },
-            { $Type: 'UI.DataField', Value: currentStatus, Label: 'Status' },
-            { $Type: 'UI.DataField', Value: currentGrade, Label: 'Condition Grade' },
-            { $Type: 'UI.DataField', Value: barcode, Label: 'Barcode' }
-        ]
-    }
+    UI.FieldGroup #EquipmentDetails: { Data: [
+        { $Type: 'UI.DataField', Value: equipmentName, Label: 'Equipment' },
+        { $Type: 'UI.DataField', Value: equipmentType, Label: 'Type' },
+        { $Type: 'UI.DataField', Value: manufacturer, Label: 'Manufacturer' },
+        { $Type: 'UI.DataField', Value: model, Label: 'Model' },
+        { $Type: 'UI.DataField', Value: serialNumber, Label: 'Serial Number' },
+        { $Type: 'UI.DataField', Value: purchaseDate, Label: 'Purchase Date' },
+        { $Type: 'UI.DataField', Value: rentalRatePerDay, Label: 'Daily Rental Rate' },
+        { $Type: 'UI.DataField', Value: currentStatus, Label: 'Status' },
+        { $Type: 'UI.DataField', Value: currentGrade, Label: 'Condition Grade' },
+        { $Type: 'UI.DataField', Value: barcode, Label: 'Barcode' }
+    ] }
 );
 
 annotate AnalyticsService.Customers with @(
-    UI.HeaderInfo: {
-        TypeName: 'Customer',
-        TypeNamePlural: 'Customers',
-        Title: { $Type: 'UI.DataField', Value: companyName },
-        Description: { $Type: 'UI.DataField', Value: contactPerson }
-    },
+    UI.HeaderInfo: { TypeName: 'Customer', TypeNamePlural: 'Customers', Title: { $Type: 'UI.DataField', Value: companyName }, Description: { $Type: 'UI.DataField', Value: contactPerson } },
     UI.SelectionFields: [companyName, contactPerson, email, phone],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: companyName, Label: 'Company' },
@@ -59,12 +47,7 @@ annotate AnalyticsService.Customers with @(
 );
 
 annotate AnalyticsService.Rentals with @(
-    UI.HeaderInfo: {
-        TypeName: 'Rental',
-        TypeNamePlural: 'Rentals',
-        Title: { $Type: 'UI.DataField', Value: ID },
-        Description: { $Type: 'UI.DataField', Value: rentalStatus }
-    },
+    UI.HeaderInfo: { TypeName: 'Rental', TypeNamePlural: 'Rentals', Title: { $Type: 'UI.DataField', Value: ID }, Description: { $Type: 'UI.DataField', Value: rentalStatus } },
     UI.SelectionFields: [rentalDate, expectedReturnDate, actualReturnDate, rentalStatus],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: ID, Label: 'Rental ID' },
@@ -78,12 +61,7 @@ annotate AnalyticsService.Rentals with @(
 );
 
 annotate AnalyticsService.ConditionLogs with @(
-    UI.HeaderInfo: {
-        TypeName: 'Inspection',
-        TypeNamePlural: 'Inspections',
-        Title: { $Type: 'UI.DataField', Value: inspectionType },
-        Description: { $Type: 'UI.DataField', Value: inspector }
-    },
+    UI.HeaderInfo: { TypeName: 'Inspection', TypeNamePlural: 'Inspections', Title: { $Type: 'UI.DataField', Value: inspectionType }, Description: { $Type: 'UI.DataField', Value: inspector } },
     UI.SelectionFields: [inspectionDate, inspectionType, conditionGrade, inspector, locked],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: equipment_ID, Label: 'Equipment' },
@@ -93,32 +71,24 @@ annotate AnalyticsService.ConditionLogs with @(
         { $Type: 'UI.DataField', Value: inspector, Label: 'Inspector' },
         { $Type: 'UI.DataField', Value: meterReading, Label: 'Meter Reading' },
         { $Type: 'UI.DataField', Value: customerAck, Label: 'Customer Acknowledged' },
+        { $Type: 'UI.DataField', Value: locked, Label: 'Locked' },
+        { $Type: 'UI.DataFieldForAction', Action: 'AnalyticsService.lockInspection', Label: 'Lock Inspection' }
+    ],
+    UI.Facets: [{ $Type: 'UI.ReferenceFacet', Label: 'Inspection Details', Target: '@UI.FieldGroup#InspectionDetails' }],
+    UI.FieldGroup #InspectionDetails: { Data: [
+        { $Type: 'UI.DataField', Value: inspectionDate, Label: 'Inspection Date' },
+        { $Type: 'UI.DataField', Value: inspectionType, Label: 'Inspection Type' },
+        { $Type: 'UI.DataField', Value: conditionGrade, Label: 'Condition Grade' },
+        { $Type: 'UI.DataField', Value: inspector, Label: 'Inspector' },
+        { $Type: 'UI.DataField', Value: meterReading, Label: 'Meter Reading' },
+        { $Type: 'UI.DataField', Value: notes, Label: 'Notes' },
+        { $Type: 'UI.DataField', Value: customerAck, Label: 'Customer Acknowledged' },
         { $Type: 'UI.DataField', Value: locked, Label: 'Locked' }
-    ],
-    UI.Facets: [
-        { $Type: 'UI.ReferenceFacet', Label: 'Inspection Details', Target: '@UI.FieldGroup#InspectionDetails' }
-    ],
-    UI.FieldGroup #InspectionDetails: {
-        Data: [
-            { $Type: 'UI.DataField', Value: inspectionDate, Label: 'Inspection Date' },
-            { $Type: 'UI.DataField', Value: inspectionType, Label: 'Inspection Type' },
-            { $Type: 'UI.DataField', Value: conditionGrade, Label: 'Condition Grade' },
-            { $Type: 'UI.DataField', Value: inspector, Label: 'Inspector' },
-            { $Type: 'UI.DataField', Value: meterReading, Label: 'Meter Reading' },
-            { $Type: 'UI.DataField', Value: notes, Label: 'Notes' },
-            { $Type: 'UI.DataField', Value: customerAck, Label: 'Customer Acknowledged' },
-            { $Type: 'UI.DataField', Value: locked, Label: 'Locked' }
-        ]
-    }
+    ] }
 );
 
 annotate AnalyticsService.DamageRecords with @(
-    UI.HeaderInfo: {
-        TypeName: 'Damage',
-        TypeNamePlural: 'Damage Records',
-        Title: { $Type: 'UI.DataField', Value: damageType },
-        Description: { $Type: 'UI.DataField', Value: severity }
-    },
+    UI.HeaderInfo: { TypeName: 'Damage', TypeNamePlural: 'Damage Records', Title: { $Type: 'UI.DataField', Value: damageType }, Description: { $Type: 'UI.DataField', Value: severity } },
     UI.SelectionFields: [damageType, severity, damageStatus, customerLiable, preExisting],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: ID, Label: 'Damage ID' },
@@ -133,12 +103,7 @@ annotate AnalyticsService.DamageRecords with @(
 );
 
 annotate AnalyticsService.MaintenanceRecords with @(
-    UI.HeaderInfo: {
-        TypeName: 'Maintenance Record',
-        TypeNamePlural: 'Maintenance Records',
-        Title: { $Type: 'UI.DataField', Value: maintenanceType },
-        Description: { $Type: 'UI.DataField', Value: status }
-    },
+    UI.HeaderInfo: { TypeName: 'Maintenance Record', TypeNamePlural: 'Maintenance Records', Title: { $Type: 'UI.DataField', Value: maintenanceType }, Description: { $Type: 'UI.DataField', Value: status } },
     UI.SelectionFields: [equipment_ID, maintenanceType, maintenanceDate, nextMaintenanceDate, status],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: ID, Label: 'Maintenance ID' },
@@ -153,12 +118,7 @@ annotate AnalyticsService.MaintenanceRecords with @(
 );
 
 annotate AnalyticsService.RepairBills with @(
-    UI.HeaderInfo: {
-        TypeName: 'Repair Bill',
-        TypeNamePlural: 'Repair Bills',
-        Title: { $Type: 'UI.DataField', Value: ID },
-        Description: { $Type: 'UI.DataField', Value: billingStatus }
-    },
+    UI.HeaderInfo: { TypeName: 'Repair Bill', TypeNamePlural: 'Repair Bills', Title: { $Type: 'UI.DataField', Value: ID }, Description: { $Type: 'UI.DataField', Value: billingStatus } },
     UI.SelectionFields: [billDate, billingStatus, customer_ID, damage_ID],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: ID, Label: 'Repair Bill' },
@@ -169,17 +129,16 @@ annotate AnalyticsService.RepairBills with @(
         { $Type: 'UI.DataField', Value: taxAmount, Label: 'Tax' },
         { $Type: 'UI.DataField', Value: totalAmount, Label: 'Total' },
         { $Type: 'UI.DataField', Value: billingStatus, Label: 'Billing Status' },
-        { $Type: 'UI.DataField', Value: approvalReason, Label: 'Approval Reason' }
+        { $Type: 'UI.DataField', Value: approvalReason, Label: 'Approval Reason' },
+        { $Type: 'UI.DataFieldForAction', Action: 'AnalyticsService.approve', Label: 'Approve' },
+        { $Type: 'UI.DataFieldForAction', Action: 'AnalyticsService.adjust', Label: 'Adjust' },
+        { $Type: 'UI.DataFieldForAction', Action: 'AnalyticsService.reject', Label: 'Reject' },
+        { $Type: 'UI.DataFieldForAction', Action: 'AnalyticsService.dispute', Label: 'Dispute' }
     ]
 );
 
 annotate AnalyticsService.PricingRules with @(
-    UI.HeaderInfo: {
-        TypeName: 'Pricing Rule',
-        TypeNamePlural: 'Pricing Rules',
-        Title: { $Type: 'UI.DataField', Value: damageType },
-        Description: { $Type: 'UI.DataField', Value: severity }
-    },
+    UI.HeaderInfo: { TypeName: 'Pricing Rule', TypeNamePlural: 'Pricing Rules', Title: { $Type: 'UI.DataField', Value: damageType }, Description: { $Type: 'UI.DataField', Value: severity } },
     UI.SelectionFields: [damageType, severity],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: damageType, Label: 'Damage Type' },
@@ -192,12 +151,7 @@ annotate AnalyticsService.PricingRules with @(
 );
 
 annotate AnalyticsService.OutboxMessages with @(
-    UI.HeaderInfo: {
-        TypeName: 'Integration Message',
-        TypeNamePlural: 'Integration Messages',
-        Title: { $Type: 'UI.DataField', Value: entityName },
-        Description: { $Type: 'UI.DataField', Value: status }
-    },
+    UI.HeaderInfo: { TypeName: 'Integration Message', TypeNamePlural: 'Integration Messages', Title: { $Type: 'UI.DataField', Value: entityName }, Description: { $Type: 'UI.DataField', Value: status } },
     UI.SelectionFields: [entityName, target, status, createdAt],
     UI.LineItem: [
         { $Type: 'UI.DataField', Value: ID, Label: 'Message ID' },
@@ -208,6 +162,7 @@ annotate AnalyticsService.OutboxMessages with @(
         { $Type: 'UI.DataField', Value: status, Label: 'Status' },
         { $Type: 'UI.DataField', Value: attempts, Label: 'Attempts' },
         { $Type: 'UI.DataField', Value: lastError, Label: 'Error' },
-        { $Type: 'UI.DataField', Value: idempotencyKey, Label: 'Idempotency Key' }
+        { $Type: 'UI.DataField', Value: idempotencyKey, Label: 'Idempotency Key' },
+        { $Type: 'UI.DataFieldForAction', Action: 'AnalyticsService.retry', Label: 'Retry' }
     ]
 );
