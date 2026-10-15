@@ -52,6 +52,16 @@ annotate AnalyticsService.Equipment with @(
     },
     UI.PresentationVariant #FleetStatusPV: {
         Visualizations: ['@UI.Chart#FleetStatusChart']
+    },
+    UI.SelectionPresentationVariant #FleetOverviewSPV: {
+        SelectionVariant: {
+            $Type: 'UI.SelectionVariantType',
+            SelectOptions: []
+        },
+        PresentationVariant: {
+            $Type: 'UI.PresentationVariantType',
+            Visualizations: ['@UI.Chart#FleetStatusChart', '@UI.LineItem']
+        }
     }
 );
 
