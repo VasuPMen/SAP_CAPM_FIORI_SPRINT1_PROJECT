@@ -1,0 +1,37 @@
+name: Validate CAP and Fiori UI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - fiori-complete-ui
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate CAP services
+        run: |
+          npx cds compile srv/service.cds
+          npx cds compile srv/fiori-backoffice-annotations.cds
+
+      - name: Validate application manifest
+        run: node -e "JSON.parse(require('fs').readFileSync('app/rental-equipment/webapp/manifest.json','utf8')); console.log('MANIFEST OK')"
+
+      - name: Build Fiori application
+        working-directory: app/rental-equipment
+        run: npx --yes @ui5/cli@4 build --config-path ui5.yaml --dest dist
