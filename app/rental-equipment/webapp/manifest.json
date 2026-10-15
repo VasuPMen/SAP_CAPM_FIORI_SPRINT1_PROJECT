@@ -30,6 +30,7 @@
     "dependencies": {
       "minUI5Version": "1.120.0",
       "libs": {
+        "sap.ui.core": {},
         "sap.fe.templates": {}
       }
     },
@@ -38,6 +39,7 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {
+          "synchronizationMode": "None",
           "operationMode": "Server",
           "autoExpandSelect": true,
           "earlyRequests": true
@@ -45,12 +47,11 @@
       }
     },
     "routing": {
-      "config": {},
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "EquipmentList",
-          "target": "EquipmentList"
+          "name": "EquipmentListReport",
+          "target": "EquipmentListReport"
         },
         {
           "pattern": "Equipment({key}):?query:",
@@ -59,13 +60,25 @@
         }
       ],
       "targets": {
-        "EquipmentList": {
+        "EquipmentListReport": {
           "type": "Component",
-          "id": "EquipmentList",
+          "id": "EquipmentListReport",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Equipment"
+              "contextPath": "/Equipment",
+              "variantManagement": "Page",
+              "navigation": {
+                "Equipment": {
+                  "detail": {
+                    "route": "EquipmentObjectPage"
+                  }
+                }
+              },
+              "tableSettings": {
+                "type": "ResponsiveTable",
+                "selectionMode": "Single"
+              }
             }
           }
         },
@@ -75,11 +88,20 @@
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
-              "contextPath": "/Equipment"
+              "contextPath": "/Equipment",
+              "editableHeaderContent": false,
+              "sectionLayout": "Tabs"
             }
           }
         }
       }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
     }
+  },
+  "sap.fiori": {
+    "archeType": "transactional"
   }
 }
