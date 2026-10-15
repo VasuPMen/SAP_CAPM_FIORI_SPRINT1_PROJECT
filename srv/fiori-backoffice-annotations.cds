@@ -13,7 +13,7 @@ annotate AnalyticsService.Customers with @(
         { $Type: 'UI.DataField', Value: contactPerson, Label: 'Contact Person' },
         { $Type: 'UI.DataField', Value: email, Label: 'Email' },
         { $Type: 'UI.DataField', Value: phone, Label: 'Phone' },
-        { $Type: 'UI.DataField', Value: city, Label: 'City' }
+        { $Type: 'UI.DataField', Value: address, Label: 'Address' }
     ]
 );
 
