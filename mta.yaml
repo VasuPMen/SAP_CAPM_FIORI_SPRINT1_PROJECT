@@ -48,8 +48,7 @@ modules:
       build-result: dist
       builder: custom
       commands:
-        - mkdir -p dist
-        - cp -r webapp/* dist/
+        - npx --yes @ui5/cli@4 build --config-path ui5.yaml --dest dist
 
   - name: SAP_CAPM_FIORI_SPRINT-ui-content
     type: com.sap.application.content
