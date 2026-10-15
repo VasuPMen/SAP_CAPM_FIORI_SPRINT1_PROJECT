@@ -31,7 +31,28 @@ annotate AnalyticsService.Equipment with @(
         { $Type: 'UI.DataField', Value: currentStatus, Label: 'Status' },
         { $Type: 'UI.DataField', Value: currentGrade, Label: 'Condition Grade' },
         { $Type: 'UI.DataField', Value: barcode, Label: 'Barcode' }
-    ] }
+    ] },
+    UI.Chart #FleetStatusChart: {
+        $Type: 'UI.ChartDefinitionType',
+        Title: 'Fleet by Status',
+        Description: 'Daily rental rate by current equipment status',
+        ChartType: #Column,
+        Dimensions: [currentStatus],
+        DimensionAttributes: [{
+            $Type: 'UI.ChartDimensionAttributeType',
+            Dimension: currentStatus,
+            Role: #Category
+        }],
+        Measures: [rentalRatePerDay],
+        MeasureAttributes: [{
+            $Type: 'UI.ChartMeasureAttributeType',
+            Measure: rentalRatePerDay,
+            Role: #Axis1
+        }]
+    },
+    UI.PresentationVariant #FleetStatusPV: {
+        Visualizations: ['@UI.Chart#FleetStatusChart']
+    }
 );
 
 annotate AnalyticsService.Customers with @(
