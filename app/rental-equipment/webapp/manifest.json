@@ -57,6 +57,7 @@
             "settings": {
               "contextPath": "/Equipment",
               "variantManagement": "Page",
+              "navigation": { "Equipment": { "detail": { "route": "AssetDetail" } } },
               "tableSettings": { "type": "ResponsiveTable", "selectionMode": "Single" }
             }
           }
@@ -65,9 +66,7 @@
           "type": "Component",
           "id": "AssetDetail",
           "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": { "contextPath": "/Equipment", "editableHeaderContent": false, "sectionLayout": "Tabs" }
-          }
+          "options": { "settings": { "contextPath": "/Equipment", "editableHeaderContent": false, "sectionLayout": "Tabs" } }
         },
         "Customers": { "type": "Component", "id": "Customers", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/Customers" } } },
         "Rentals": { "type": "Component", "id": "Rentals", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/Rentals" } } },
