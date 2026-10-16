@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { UPDATE, SELECT } = cds.ql;
 
 module.exports = cds.service.impl(function () {
     const { ConditionLogs, RepairBills, OutboxMessages } = this.entities;
