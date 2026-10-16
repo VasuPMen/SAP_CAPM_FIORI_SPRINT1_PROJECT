@@ -1,15 +1,11 @@
 sap.ui.define([
-    "sap/ui/core/UIComponent"
-], function (UIComponent) {
+    "sap/fe/core/AppComponent"
+], function (AppComponent) {
     "use strict";
 
-    return UIComponent.extend("rental.equipment.Component", {
+    return AppComponent.extend("rental.equipment.Component", {
         metadata: {
             manifest: "json"
-        },
-
-        init: function () {
-            UIComponent.prototype.init.apply(this, arguments);
         }
     });
 });
