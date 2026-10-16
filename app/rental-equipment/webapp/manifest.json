@@ -3,32 +3,21 @@
   "sap.app": {
     "id": "rental.equipment",
     "type": "application",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
+    "applicationVersion": { "version": "1.0.0" },
     "title": "Rental Equipment Management",
     "description": "SAP Fiori elements application for equipment rental operations",
     "dataSources": {
       "mainService": {
         "uri": "/analytics/",
         "type": "OData",
-        "settings": {
-          "odataVersion": "4.0"
-        }
+        "settings": { "odataVersion": "4.0" }
       }
     }
   },
-  "sap.cloud": {
-    "public": true,
-    "service": "rental-equipment"
-  },
+  "sap.cloud": { "public": true, "service": "rental-equipment" },
   "sap.ui": {
     "technology": "UI5",
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
   },
   "sap.ui5": {
     "dependencies": {
@@ -52,9 +41,7 @@
       }
     },
     "routing": {
-      "config": {
-        "routerClass": "sap.f.routing.Router"
-      },
+      "config": { "routerClass": "sap.f.routing.Router" },
       "routes": [
         { "pattern": ":?query:", "name": "FleetOverview", "target": "FleetOverview" },
         { "pattern": "Equipment({key}):?query:", "name": "AssetDetail", "target": "AssetDetail" },
@@ -74,93 +61,68 @@
       ],
       "targets": {
         "FleetOverview": {
-          "type": "Component",
-          "id": "FleetOverview",
-          "name": "sap.fe.templates.AnalyticalListPage",
+          "type": "Component", "id": "FleetOverview", "name": "sap.fe.templates.AnalyticalListPage",
           "options": { "settings": { "contextPath": "/Equipment", "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#FleetOverviewSPV" } }
         },
         "AssetDetail": {
-          "type": "Component",
-          "id": "AssetDetail",
-          "name": "sap.fe.templates.ObjectPage",
+          "type": "Component", "id": "AssetDetail", "name": "sap.fe.templates.ObjectPage",
           "options": { "settings": { "contextPath": "/Equipment" } }
         },
         "ManagementDashboard": {
-          "type": "Component",
-          "id": "ManagementDashboard",
-          "name": "sap.fe.templates.AnalyticalListPage",
+          "type": "Component", "id": "ManagementDashboard", "name": "sap.fe.templates.AnalyticalListPage",
           "options": { "settings": { "contextPath": "/Equipment", "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#ManagementDashboardSPV" } }
         },
         "Rentals": {
-          "type": "Component",
-          "id": "Rentals",
-          "name": "sap.fe.templates.ListReport",
+          "type": "Component", "id": "Rentals", "name": "sap.fe.templates.ListReport",
           "options": { "settings": { "contextPath": "/Rentals" } }
         },
         "RentalObjectPage": {
-          "type": "Component",
-          "id": "RentalObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
+          "type": "Component", "id": "RentalObjectPage", "name": "sap.fe.templates.ObjectPage",
           "options": { "settings": { "contextPath": "/Rentals" } }
         },
         "InspectionReview": {
-          "type": "Component",
-          "id": "InspectionReview",
-          "name": "sap.fe.templates.ListReport",
+          "type": "Component", "id": "InspectionReview", "name": "sap.fe.templates.ListReport",
           "options": { "settings": { "contextPath": "/ConditionLogs" } }
         },
         "InspectionObjectPage": {
-          "type": "Component",
-          "id": "InspectionObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
+          "type": "Component", "id": "InspectionObjectPage", "name": "sap.fe.templates.ObjectPage",
           "options": { "settings": { "contextPath": "/ConditionLogs" } }
         },
         "DamageChargeApproval": {
-          "type": "Component",
-          "id": "DamageChargeApproval",
-          "name": "sap.fe.templates.ListReport",
+          "type": "Component", "id": "DamageChargeApproval", "name": "sap.fe.templates.ListReport",
           "options": { "settings": { "contextPath": "/RepairBills" } }
         },
         "DamageChargeApprovalObjectPage": {
-          "type": "Component",
-          "id": "DamageChargeApprovalObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
+          "type": "Component", "id": "DamageChargeApprovalObjectPage", "name": "sap.fe.templates.ObjectPage",
           "options": { "settings": { "contextPath": "/RepairBills" } }
         },
         "MaintenancePlanner": {
-          "type": "Component",
-          "id": "MaintenancePlanner",
-          "name": "sap.fe.core.fpm",
+          "type": "Component", "id": "MaintenancePlanner", "name": "sap.fe.core.fpm",
           "options": { "settings": { "viewName": "rental.equipment.ext.view.MaintenancePlanner", "contextPath": "/MaintenanceRecords" } }
         },
         "MaintenanceObjectPage": {
-          "type": "Component",
-          "id": "MaintenanceObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
+          "type": "Component", "id": "MaintenanceObjectPage", "name": "sap.fe.templates.ObjectPage",
           "options": { "settings": { "contextPath": "/MaintenanceRecords" } }
         },
         "RepairJobs": {
-          "type": "Component",
-          "id": "RepairJobs",
-          "name": "sap.fe.templates.ListReport",
-          "options": { "settings": { "contextPath": "/MaintenanceRecords" } }
+          "type": "Component", "id": "RepairJobs", "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/MaintenanceRecords",
+              "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#RepairJobsSPV"
+            }
+          }
         },
         "Configuration": {
-          "type": "Component",
-          "id": "Configuration",
-          "name": "sap.fe.templates.ListReport",
+          "type": "Component", "id": "Configuration", "name": "sap.fe.templates.ListReport",
           "options": { "settings": { "contextPath": "/PricingRules" } }
         },
         "PricingObjectPage": {
-          "type": "Component",
-          "id": "PricingObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
+          "type": "Component", "id": "PricingObjectPage", "name": "sap.fe.templates.ObjectPage",
           "options": { "settings": { "contextPath": "/PricingRules" } }
         },
         "IntegrationMonitor": {
-          "type": "Component",
-          "id": "IntegrationMonitor",
-          "name": "sap.fe.templates.ListReport",
+          "type": "Component", "id": "IntegrationMonitor", "name": "sap.fe.templates.ListReport",
           "options": { "settings": { "contextPath": "/OutboxMessages" } }
         }
       }
