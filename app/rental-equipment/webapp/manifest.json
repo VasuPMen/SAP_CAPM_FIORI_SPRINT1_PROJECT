@@ -127,7 +127,18 @@
         "DamageChargeApprovalObjectPage": { "type": "Component", "id": "DamageChargeApprovalObjectPage", "name": "sap.fe.templates.ObjectPage", "options": { "settings": { "contextPath": "/RepairBills", "sectionLayout": "Tabs" } } },
         "DamageRecords": { "type": "Component", "id": "DamageRecords", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/DamageRecords", "initialLoad": true, "navigation": { "DamageRecords": { "detail": { "route": "DamageObjectPage" } } } } } },
         "DamageObjectPage": { "type": "Component", "id": "DamageObjectPage", "name": "sap.fe.templates.ObjectPage", "options": { "settings": { "contextPath": "/DamageRecords", "sectionLayout": "Tabs" } } },
-        "MaintenancePlanner": { "type": "Component", "id": "MaintenancePlanner", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/MaintenanceRecords", "initialLoad": true, "navigation": { "MaintenanceRecords": { "detail": { "route": "MaintenanceObjectPage" } } } } } },
+        "MaintenancePlanner": {
+          "type": "Component",
+          "id": "MaintenancePlanner",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "viewName": "rental.equipment.ext.view.MaintenancePlanner",
+              "contextPath": "/MaintenanceRecords",
+              "navigation": { "MaintenanceRecords": { "detail": { "route": "MaintenanceObjectPage" } } }
+            }
+          }
+        },
         "MaintenanceObjectPage": { "type": "Component", "id": "MaintenanceObjectPage", "name": "sap.fe.templates.ObjectPage", "options": { "settings": { "contextPath": "/MaintenanceRecords", "sectionLayout": "Tabs" } } },
         "RepairJobs": { "type": "Component", "id": "RepairJobs", "name": "sap.fe.templates.ListReport", "options": { "settings": { "contextPath": "/RepairBills", "initialLoad": true, "navigation": { "RepairBills": { "detail": { "route": "RepairObjectPage" } } } } } },
         "RepairObjectPage": { "type": "Component", "id": "RepairObjectPage", "name": "sap.fe.templates.ObjectPage", "options": { "settings": { "contextPath": "/RepairBills", "sectionLayout": "Tabs" } } },
