@@ -1,0 +1,43 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:unified="sap.ui.unified"
+    xmlns:macros="sap.fe.macros"
+    controllerName="rental.equipment.ext.controller.MaintenancePlanner">
+    <Page title="Maintenance Planner">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Title text="Maintenance Calendar" level="H2" class="sapUiSmallMarginBottom" />
+                <PlanningCalendar
+                    id="maintenanceCalendar"
+                    startDate="{calendar>/startDate}"
+                    rows="{calendar>/rows}"
+                    viewKey="Month"
+                    showRowHeaders="true"
+                    class="sapUiSmallMarginBottom">
+                    <rows>
+                        <PlanningCalendarRow
+                            title="{calendar>title}"
+                            text="{calendar>text}"
+                            appointments="{calendar>appointments}">
+                            <appointments>
+                                <unified:CalendarAppointment
+                                    startDate="{calendar>startDate}"
+                                    endDate="{calendar>endDate}"
+                                    title="{calendar>title}"
+                                    text="{calendar>text}"
+                                    type="{calendar>type}" />
+                            </appointments>
+                        </PlanningCalendarRow>
+                    </rows>
+                </PlanningCalendar>
+                <Title text="Maintenance Records" level="H2" class="sapUiSmallMarginBottom" />
+                <macros:Table
+                    id="maintenanceTable"
+                    metaPath="@com.sap.vocabularies.UI.v1.LineItem"
+                    contextPath="/MaintenanceRecords"
+                    enableAutoColumnWidth="true" />
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
