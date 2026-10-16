@@ -27,10 +27,14 @@ jobs:
       - name: Compile CAP project
         run: npx cds build --production
 
+      - name: Validate backend action syntax
+        run: node --check srv/service/analytics-service.cjs
+
       - name: Validate Fiori annotations
         run: |
           npx cds compile app/rental-equipment/fiori-annotations.cds --to json
           npx cds compile app/rental-equipment/fiori-actions.cds --to json
+          npx cds compile app/rental-equipment/fiori-damage.cds --to json
 
       - name: Validate manifest JSON
         run: node -e "JSON.parse(require('fs').readFileSync('app/rental-equipment/webapp/manifest.json','utf8')); console.log('manifest.json is valid JSON')"
