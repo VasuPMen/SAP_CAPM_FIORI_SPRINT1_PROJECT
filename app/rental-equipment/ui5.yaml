@@ -1,0 +1,18 @@
+specVersion: "3.2"
+type: application
+metadata:
+  name: rental.equipment
+framework:
+  name: SAPUI5
+  version: 1.120.14
+  libraries:
+    - name: sap.ui.core
+    - name: sap.m
+    - name: sap.f
+    - name: sap.fe.core
+    - name: sap.fe.templates
+    - name: themelib_sap_horizon
+builder:
+  componentPreload:
+    namespaces:
+      - rental.equipment
