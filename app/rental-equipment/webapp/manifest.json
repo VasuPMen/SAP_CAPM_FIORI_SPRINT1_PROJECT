@@ -70,7 +70,7 @@
         },
         "ManagementDashboard": {
           "type": "Component", "id": "ManagementDashboard", "name": "sap.fe.templates.AnalyticalListPage",
-          "options": { "settings": { "contextPath": "/Equipment", "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#ManagementDashboardSPV" } }
+          "options": { "settings": { "contextPath": "/Rentals", "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#ManagementDashboardSPV" } }
         },
         "Rentals": {
           "type": "Component", "id": "Rentals", "name": "sap.fe.templates.ListReport",
