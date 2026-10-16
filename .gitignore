@@ -11,9 +11,16 @@ default-*.json
 mta_archives/
 *_mta_build_tmp
 *.mtar
+mta-op-*/
+
+# CAP generated output
+.gen/
 
 # Other
 .DS_Store
+*.swp
+*.swo
+.server.j
 
 # @cap-js/cds-typer
 @cds-models
