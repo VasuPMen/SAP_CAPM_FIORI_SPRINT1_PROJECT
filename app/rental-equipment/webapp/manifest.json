@@ -35,7 +35,9 @@
       "minUI5Version": "1.120.0",
       "libs": {
         "sap.fe.templates": {},
-        "sap.fe.core": {}
+        "sap.fe.core": {},
+        "sap.m": {},
+        "sap.ui.unified": {}
       }
     },
     "models": {
@@ -221,10 +223,18 @@
         "MaintenancePlanner": {
           "type": "Component",
           "id": "MaintenancePlanner",
-          "name": "sap.fe.templates.ListReport",
+          "name": "sap.fe.core.fpm",
           "options": {
             "settings": {
-              "contextPath": "/MaintenanceRecords"
+              "viewName": "rental.equipment.ext.view.MaintenancePlanner",
+              "contextPath": "/MaintenanceRecords",
+              "navigation": {
+                "MaintenanceRecords": {
+                  "detail": {
+                    "route": "MaintenanceObjectPage"
+                  }
+                }
+              }
             }
           }
         },
