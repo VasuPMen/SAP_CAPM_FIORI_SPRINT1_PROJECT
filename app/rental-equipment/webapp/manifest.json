@@ -68,13 +68,11 @@
             "settings": {
               "contextPath": "/Equipment",
               "views": {
-                "paths": [
-                  {
-                    "primary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#FleetOverviewSPV" }],
-                    "secondary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.LineItem" }],
-                    "defaultPath": "both"
-                  }
-                ]
+                "paths": {
+                  "primary": { "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#FleetOverviewSPV" },
+                  "secondary": { "annotationPath": "com.sap.vocabularies.UI.v1.LineItem" },
+                  "defaultPath": "both"
+                }
               }
             }
           }
@@ -91,13 +89,11 @@
             "settings": {
               "contextPath": "/Rentals",
               "views": {
-                "paths": [
-                  {
-                    "primary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#ManagementDashboardSPV" }],
-                    "secondary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.LineItem" }],
-                    "defaultPath": "both"
-                  }
-                ]
+                "paths": {
+                  "primary": { "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#ManagementDashboardSPV" },
+                  "secondary": { "annotationPath": "com.sap.vocabularies.UI.v1.LineItem" },
+                  "defaultPath": "both"
+                }
               }
             }
           }
