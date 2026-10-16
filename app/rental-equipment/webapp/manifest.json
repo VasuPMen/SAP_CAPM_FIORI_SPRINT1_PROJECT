@@ -18,6 +18,10 @@
       }
     }
   },
+  "sap.cloud": {
+    "public": true,
+    "service": "rental-equipment"
+  },
   "sap.ui": {
     "technology": "UI5",
     "deviceTypes": {
