@@ -223,9 +223,10 @@
         "MaintenancePlanner": {
           "type": "Component",
           "id": "MaintenancePlanner",
-          "name": "sap.fe.templates.ListReport",
+          "name": "sap.fe.core.fpm",
           "options": {
             "settings": {
+              "viewName": "rental.equipment.ext.view.MaintenancePlanner",
               "contextPath": "/MaintenanceRecords"
             }
           }
