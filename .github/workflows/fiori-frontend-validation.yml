@@ -32,9 +32,10 @@ jobs:
 
       - name: Validate Fiori annotations
         run: |
-          npx cds compile app/rental-equipment/fiori-annotations.cds --to json
-          npx cds compile app/rental-equipment/fiori-actions.cds --to json
-          npx cds compile app/rental-equipment/fiori-damage.cds --to json
+          for file in app/rental-equipment/*.cds; do
+            echo "Validating $file"
+            npx cds compile "$file" --to json
+          done
 
       - name: Validate manifest JSON
         run: node -e "JSON.parse(require('fs').readFileSync('app/rental-equipment/webapp/manifest.json','utf8')); console.log('manifest.json is valid JSON')"
