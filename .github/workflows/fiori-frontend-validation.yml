@@ -1,0 +1,52 @@
+name: Fiori Frontend Validation
+
+on:
+  push:
+    branches:
+      - fiori-frontend-from-scratch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install CAP dependencies
+        run: npm ci
+
+      - name: Compile CAP project
+        run: npx cds build --production
+
+      - name: Validate backend action syntax
+        run: node --check srv/service/analytics-service.cjs
+
+      - name: Validate Fiori annotations
+        run: |
+          for file in app/rental-equipment/*.cds; do
+            echo "Validating $file"
+            npx cds compile "$file" --to json
+          done
+
+      - name: Validate manifest JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('app/rental-equipment/webapp/manifest.json','utf8')); console.log('manifest.json is valid JSON')"
+
+      - name: Install Fiori dependencies
+        working-directory: app/rental-equipment
+        run: npm install
+
+      - name: Build Fiori application
+        working-directory: app/rental-equipment
+        run: npm run build
+
+      - name: Validate MTA packaging
+        run: npx --yes mbt@1.2.29 build -p cf --mtar target.mtar
