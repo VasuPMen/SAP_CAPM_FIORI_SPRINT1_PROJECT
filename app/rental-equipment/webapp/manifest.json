@@ -2,7 +2,7 @@
   "_version": "1.65.0",
   "sap.app": {
     "id": "rental.equipment",
-    "type": "application",
+    "type": "UI5",
     "applicationVersion": { "version": "1.0.0" },
     "title": "Rental Equipment Management",
     "description": "SAP Fiori elements application for equipment rental operations",
@@ -69,7 +69,7 @@
               "contextPath": "/Equipment",
               "views": {
                 "paths": {
-                  "primary": { "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#FleetOverviewSPV" },
+                  "primary": { "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#FleetOverviewALP" },
                   "secondary": { "annotationPath": "com.sap.vocabularies.UI.v1.LineItem" },
                   "defaultPath": "both"
                 }
