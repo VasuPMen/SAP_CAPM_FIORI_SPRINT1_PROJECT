@@ -39,9 +39,13 @@ jobs:
       - name: Validate manifest JSON
         run: node -e "JSON.parse(require('fs').readFileSync('app/rental-equipment/webapp/manifest.json','utf8')); console.log('manifest.json is valid JSON')"
 
+      - name: Install Fiori dependencies
+        working-directory: app/rental-equipment
+        run: npm install
+
       - name: Build Fiori application
         working-directory: app/rental-equipment
-        run: npx --yes @ui5/cli@4 build --clean-dest
+        run: npm run build
 
       - name: Validate MTA packaging
         run: npx --yes mbt@1.2.29 build -p cf --mtar target.mtar
