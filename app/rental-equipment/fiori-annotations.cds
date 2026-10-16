@@ -1,4 +1,4 @@
-using AnalyticsService from '../../srv/service';
+using { AnalyticsService } from '../../srv/service';
 
 annotate AnalyticsService.Equipment with @(
     UI.HeaderInfo: {
@@ -52,7 +52,11 @@ annotate AnalyticsService.Equipment with @(
     },
     UI.SelectionPresentationVariant #FleetOverviewSPV: {
         SelectionVariant: { $Type: 'UI.SelectionVariantType', SelectOptions: [] },
-        PresentationVariant: { $Type: 'UI.PresentationVariantType', SortOrder: [{ Property: equipmentName, Descending: false }], Visualizations: ['@UI.LineItem'] }
+        PresentationVariant: {
+            $Type: 'UI.PresentationVariantType',
+            SortOrder: [{ Property: equipmentName, Descending: false }],
+            Visualizations: ['@UI.LineItem']
+        }
     },
     UI.Chart #ManagementRateChart: {
         $Type: 'UI.ChartDefinitionType',
@@ -84,7 +88,7 @@ annotate AnalyticsService.Customers with @(
         { Value: contactPerson, Label: 'Contact Person' },
         { Value: email, Label: 'Email' },
         { Value: phone, Label: 'Phone' },
-        { Value: city, Label: 'City' }
+        { Value: address, Label: 'Address' }
     ]
 );
 
