@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: SAP_CAPM_FIORI_SPRINT
 version: 1.0.0
-description: "A simple CAP project."
+description: "Rental Equipment Tracking and Condition Logging"
 
 parameters:
   enable-parallel-deployments: true
@@ -40,6 +40,30 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: SAP_CAPM_FIORI_SPRINT-db
+
+  - name: SAP_CAPM_FIORI_SPRINT-rental-equipment
+    type: html5
+    path: app/rental-equipment
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npx --yes @ui5/cli@4 build --config-path ui5.yaml --dest dist
+
+  - name: SAP_CAPM_FIORI_SPRINT-ui-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: SAP_CAPM_FIORI_SPRINT-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: SAP_CAPM_FIORI_SPRINT-rental-equipment
+          artifacts:
+            - dist
+          target-path: resources/
 
   - name: SAP_CAPM_FIORI_SPRINT
     type: approuter.nodejs
