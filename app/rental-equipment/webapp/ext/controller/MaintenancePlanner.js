@@ -19,7 +19,7 @@ sap.ui.define([
 
             try {
                 const oBinding = oModel.bindList("/MaintenanceRecords", undefined, undefined, undefined, {
-                    $select: "ID,maintenanceType,maintenanceDate,nextMaintenanceDate,status,description,serviceProvider",
+                    $select: "ID,maintenanceType,maintenanceDate,nextMaintenanceDate,status,description,serviceProvider,cost",
                     $expand: "equipment($select=equipmentName)"
                 });
                 const aContexts = await oBinding.requestContexts(0, 500);
@@ -30,6 +30,7 @@ sap.ui.define([
                     if (!oStart) {
                         return null;
                     }
+
                     const oSafeEnd = oEnd && oEnd > oStart ? oEnd : new Date(oStart.getTime() + 60 * 60 * 1000);
                     const sEquipmentName = oData.equipment && oData.equipment.equipmentName;
                     return {
@@ -39,16 +40,20 @@ sap.ui.define([
                         title: oData.maintenanceType || "Maintenance",
                         text: [oData.status, sEquipmentName].filter(Boolean).join(" • "),
                         type: this._appointmentType(oData.status),
+                        maintenanceType: oData.maintenanceType,
+                        maintenanceDate: oData.maintenanceDate,
+                        nextMaintenanceDate: oData.nextMaintenanceDate,
+                        status: oData.status,
+                        equipmentName: sEquipmentName,
                         description: oData.description,
-                        serviceProvider: oData.serviceProvider
+                        serviceProvider: oData.serviceProvider,
+                        cost: oData.cost
                     };
                 }).filter(Boolean);
 
-                this.getView().getModel("planner").setProperty("/appointments", aAppointments);
-                this.getView().byId("maintenanceCalendar").bindAggregation("appointments", {
-                    path: "planner>/appointments",
-                    template: this.getView().byId("maintenanceCalendar").getBindingInfo("appointments").template
-                });
+                const oPlannerModel = this.getView().getModel("planner");
+                oPlannerModel.setProperty("/appointments", aAppointments);
+                this.getView().byId("maintenanceCalendar").getBinding("appointments")?.refresh();
             } catch (oError) {
                 MessageToast.show("Unable to load maintenance records");
                 // eslint-disable-next-line no-console
