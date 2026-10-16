@@ -7,10 +7,45 @@
         <content>
             <VBox class="sapUiSmallMargin">
                 <Toolbar>
-                    <Title text="Maintenance Calendar" level="H2"/>
+                    <Title text="Maintenance Schedule" level="H2"/>
                     <ToolbarSpacer/>
                     <Button text="Refresh" icon="sap-icon://refresh" press="onRefresh"/>
                 </Toolbar>
+                <Table
+                    id="maintenanceList"
+                    items="{planner>/appointments}"
+                    growing="true"
+                    growingThreshold="20"
+                    sticky="ColumnHeaders">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Maintenance Records" level="H3"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column><Text text="Equipment"/></Column>
+                        <Column><Text text="Type"/></Column>
+                        <Column><Text text="Maintenance Date"/></Column>
+                        <Column><Text text="Next Maintenance"/></Column>
+                        <Column><Text text="Status"/></Column>
+                        <Column><Text text="Service Provider"/></Column>
+                        <Column hAlign="End"><Text text="Cost"/></Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{planner>equipmentName}"/>
+                                <Text text="{planner>maintenanceType}"/>
+                                <Text text="{planner>maintenanceDate}"/>
+                                <Text text="{planner>nextMaintenanceDate}"/>
+                                <ObjectStatus text="{planner>status}"/>
+                                <Text text="{planner>serviceProvider}"/>
+                                <ObjectNumber number="{planner>cost}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                <Title text="Maintenance Calendar" level="H2" class="sapUiMediumMarginTop"/>
                 <SinglePlanningCalendar
                     id="maintenanceCalendar"
                     viewKey="Month"
@@ -23,11 +58,11 @@
                     </views>
                     <appointments>
                         <unified:CalendarAppointment
-                            startDate="{start}"
-                            endDate="{end}"
-                            title="{title}"
-                            text="{text}"
-                            type="{type}"/>
+                            startDate="{planner>start}"
+                            endDate="{planner>end}"
+                            title="{planner>title}"
+                            text="{planner>text}"
+                            type="{planner>type}"/>
                     </appointments>
                 </SinglePlanningCalendar>
             </VBox>
