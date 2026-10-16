@@ -138,7 +138,8 @@ annotate AnalyticsService.ConditionLogs with @(
         { Value: locked, Label: 'Locked' }
     ],
     UI.Facets: [
-        { $Type: 'UI.ReferenceFacet', Label: 'Inspection', Target: '@UI.FieldGroup#Inspection' }
+        { $Type: 'UI.ReferenceFacet', Label: 'Inspection', Target: '@UI.FieldGroup#Inspection' },
+        { $Type: 'UI.ReferenceFacet', Label: 'Damage Records', Target: 'damages/@UI.LineItem' }
     ],
     UI.FieldGroup #Inspection: {
         Data: [
