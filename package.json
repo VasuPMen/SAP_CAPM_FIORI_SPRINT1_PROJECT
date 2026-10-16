@@ -16,7 +16,8 @@
     "@sap/cds-dk": "^10"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "validate": "cds lint && cds compile db/schema.cds srv/service.cds --to json"
   },
   "private": true,
   "cds": {
