@@ -34,4 +34,5 @@ jobs:
         run: node -e "JSON.parse(require('fs').readFileSync('app/rental-equipment/webapp/manifest.json','utf8')); console.log('manifest.json is valid JSON')"
 
       - name: Build Fiori application
-        run: npx --yes @ui5/cli@latest build --config-path app/rental-equipment/ui5.yaml --dest app/rental-equipment/dist --clean-dest
+        working-directory: app/rental-equipment
+        run: npx --yes @ui5/cli@4 build --clean-dest
