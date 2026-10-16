@@ -50,7 +50,8 @@
                     id="maintenanceCalendar"
                     viewKey="Month"
                     appointmentSelect="onAppointmentSelect"
-                    appointmentsVisualization="Standard">
+                    appointmentsVisualization="Standard"
+                    appointments="{planner>/appointments}">
                     <views>
                         <SinglePlanningCalendarMonthView key="Month" title="Month"/>
                         <SinglePlanningCalendarWeekView key="Week" title="Week"/>
