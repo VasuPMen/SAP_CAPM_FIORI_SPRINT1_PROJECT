@@ -1,0 +1,37 @@
+name: Fiori Frontend Validation
+
+on:
+  push:
+    branches:
+      - fiori-frontend-from-scratch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install CAP dependencies
+        run: npm ci
+
+      - name: Compile CAP project
+        run: npx cds build --production
+
+      - name: Validate Fiori annotations
+        run: npx cds compile app/rental-equipment/fiori-annotations.cds --to json
+
+      - name: Validate manifest JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('app/rental-equipment/webapp/manifest.json','utf8')); console.log('manifest.json is valid JSON')"
+
+      - name: Build Fiori application
+        run: npx --yes @ui5/cli@latest build --config-path app/rental-equipment/ui5.yaml --dest app/rental-equipment/dist --clean-dest
