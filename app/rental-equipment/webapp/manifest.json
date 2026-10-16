@@ -61,16 +61,46 @@
       ],
       "targets": {
         "FleetOverview": {
-          "type": "Component", "id": "FleetOverview", "name": "sap.fe.templates.AnalyticalListPage",
-          "options": { "settings": { "contextPath": "/Equipment", "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#FleetOverviewSPV" } }
+          "type": "Component",
+          "id": "FleetOverview",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Equipment",
+              "views": {
+                "paths": [
+                  {
+                    "primary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#FleetOverviewSPV" }],
+                    "secondary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.LineItem" }],
+                    "defaultPath": "both"
+                  }
+                ]
+              }
+            }
+          }
         },
         "AssetDetail": {
           "type": "Component", "id": "AssetDetail", "name": "sap.fe.templates.ObjectPage",
           "options": { "settings": { "contextPath": "/Equipment" } }
         },
         "ManagementDashboard": {
-          "type": "Component", "id": "ManagementDashboard", "name": "sap.fe.templates.AnalyticalListPage",
-          "options": { "settings": { "contextPath": "/Rentals", "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#ManagementDashboardSPV" } }
+          "type": "Component",
+          "id": "ManagementDashboard",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Rentals",
+              "views": {
+                "paths": [
+                  {
+                    "primary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#ManagementDashboardSPV" }],
+                    "secondary": [{ "annotationPath": "com.sap.vocabularies.UI.v1.LineItem" }],
+                    "defaultPath": "both"
+                  }
+                ]
+              }
+            }
+          }
         },
         "Rentals": {
           "type": "Component", "id": "Rentals", "name": "sap.fe.templates.ListReport",
