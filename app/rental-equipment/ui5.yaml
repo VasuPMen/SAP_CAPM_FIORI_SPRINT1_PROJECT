@@ -9,7 +9,9 @@ framework:
     - name: sap.ui.core
     - name: sap.m
     - name: sap.f
+    - name: sap.ui.unified
     - name: sap.fe.core
+    - name: sap.fe.macros
     - name: sap.fe.templates
     - name: themelib_sap_horizon
 builder:
