@@ -71,7 +71,8 @@ modules:
       builder: custom
       build-result: dist
       commands:
-        - npx --yes @ui5/cli@4 build --clean-dest
+        - npm install
+        - npm run build
       supported-platforms: []
 
   - name: SAP_CAPM_FIORI_SPRINT-app-content
