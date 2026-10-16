@@ -57,22 +57,6 @@ annotate AnalyticsService.Equipment with @(
             SortOrder: [{ Property: equipmentName, Descending: false }],
             Visualizations: ['@UI.LineItem']
         }
-    },
-    UI.Chart #ManagementRateChart: {
-        $Type: 'UI.ChartDefinitionType',
-        Title: 'Rental Rate by Equipment Status',
-        ChartType: #Column,
-        Dimensions: [currentStatus],
-        DimensionAttributes: [{ $Type: 'UI.ChartDimensionAttributeType', Dimension: currentStatus, Role: #Category }],
-        Measures: [rentalRatePerDay],
-        MeasureAttributes: [{ $Type: 'UI.ChartMeasureAttributeType', Measure: rentalRatePerDay, Role: #Axis1 }]
-    },
-    UI.SelectionPresentationVariant #ManagementDashboardSPV: {
-        SelectionVariant: { $Type: 'UI.SelectionVariantType', SelectOptions: [] },
-        PresentationVariant: {
-            $Type: 'UI.PresentationVariantType',
-            Visualizations: ['@UI.Chart#ManagementRateChart', '@UI.LineItem']
-        }
     }
 );
 
@@ -118,6 +102,23 @@ annotate AnalyticsService.Rentals with @(
             { Value: rentalStatus, Label: 'Status' },
             { Value: totalRentalAmount, Label: 'Total Amount' }
         ]
+    },
+    UI.Chart #RentalAmountByStatus: {
+        $Type: 'UI.ChartDefinitionType',
+        Title: 'Rental Amount by Status',
+        ChartType: #Column,
+        Dimensions: [rentalStatus],
+        DimensionAttributes: [{ $Type: 'UI.ChartDimensionAttributeType', Dimension: rentalStatus, Role: #Category }],
+        Measures: [totalRentalAmount],
+        MeasureAttributes: [{ $Type: 'UI.ChartMeasureAttributeType', Measure: totalRentalAmount, Role: #Axis1 }]
+    },
+    UI.SelectionPresentationVariant #ManagementDashboardSPV: {
+        SelectionVariant: { $Type: 'UI.SelectionVariantType', SelectOptions: [] },
+        PresentationVariant: {
+            $Type: 'UI.PresentationVariantType',
+            SortOrder: [{ Property: rentalDate, Descending: true }],
+            Visualizations: ['@UI.Chart#RentalAmountByStatus', '@UI.LineItem']
+        }
     }
 );
 
