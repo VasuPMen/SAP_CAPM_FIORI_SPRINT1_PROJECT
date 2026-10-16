@@ -44,9 +44,15 @@ service AnalyticsService {
     entity Customers as projection on db.Customers;
     entity Locations as projection on db.Locations;
     entity Equipment as projection on db.Equipment;
+    entity EquipmentTransfers as projection on db.EquipmentTransfers;
     entity Rentals as projection on db.Rentals;
+    entity RentalItems as projection on db.RentalItems;
+    entity RentalStatusHistory as projection on db.RentalStatusHistory;
     entity ConditionLogs as projection on db.ConditionLogs;
     entity DamageRecords as projection on db.DamageRecords;
+    entity DamagePhotos as projection on db.DamagePhotos;
     entity MaintenanceRecords as projection on db.MaintenanceRecords;
     entity RepairBills as projection on db.RepairBills;
+    entity PricingRules as projection on db.PricingRules;
+    entity OutboxMessages as projection on db.OutboxMessages;
 }
