@@ -161,7 +161,7 @@ entity RentalItems : cuid, managed {
     rental          : Association to Rentals @mandatory;
     equipment       : Association to Equipment @mandatory;
     dailyRentalRate : Decimal(10,2);
-    startDate       : Date;
+    startDate       : Date @mandatory;
     endDate         : Date;
     itemStatus      : ItemStatus default #Reserved;
 };
@@ -220,7 +220,7 @@ entity DamagePhotos : cuid {
 entity MaintenanceRecords : cuid, managed {
     equipment           : Association to Equipment @mandatory;
     maintenanceType     : MaintenanceType @mandatory;
-    maintenanceDate     : Date;
+    maintenanceDate     : Date @mandatory;
     description         : String(500);
     serviceProvider     : String(150);
     cost                : Money;
@@ -234,7 +234,7 @@ entity RepairBills : cuid, managed {
     rental         : Association to Rentals @mandatory;
     customer       : Association to Customers @mandatory;
     damage         : Association to DamageRecords @mandatory;
-    billDate       : Date;
+    billDate       : Date @mandatory;
     repairAmount   : Money;
     taxAmount      : Money;
     totalAmount    : Money;
