@@ -4,7 +4,7 @@ metadata:
   name: rental.equipment
 framework:
   name: SAPUI5
-  version: 1.120.14
+  version: 1.120.42
   libraries:
     - name: sap.ui.core
     - name: sap.m
