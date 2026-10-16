@@ -1,0 +1,36 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:unified="sap.ui.unified"
+    controllerName="rental.equipment.ext.controller.MaintenancePlanner">
+    <Page title="Maintenance Planner">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Toolbar>
+                    <Title text="Maintenance Calendar" level="H2"/>
+                    <ToolbarSpacer/>
+                    <Button text="Refresh" icon="sap-icon://refresh" press="onRefresh"/>
+                </Toolbar>
+                <SinglePlanningCalendar
+                    id="maintenanceCalendar"
+                    viewKey="Month"
+                    appointmentSelect="onAppointmentSelect"
+                    appointmentsVisualization="Standard">
+                    <views>
+                        <SinglePlanningCalendarMonthView key="Month" title="Month"/>
+                        <SinglePlanningCalendarWeekView key="Week" title="Week"/>
+                        <SinglePlanningCalendarDayView key="Day" title="Day"/>
+                    </views>
+                    <appointments>
+                        <unified:CalendarAppointment
+                            startDate="{start}"
+                            endDate="{end}"
+                            title="{title}"
+                            text="{text}"
+                            type="{type}"/>
+                    </appointments>
+                </SinglePlanningCalendar>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
