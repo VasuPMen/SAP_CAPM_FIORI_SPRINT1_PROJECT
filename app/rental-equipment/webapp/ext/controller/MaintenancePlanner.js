@@ -1,8 +1,8 @@
 sap.ui.define([
     "sap/fe/core/PageController",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageToast"
-], function (PageController, JSONModel, MessageToast) {
+    "sap/ui/core/UIComponent"
+], function (PageController, JSONModel, UIComponent) {
     "use strict";
 
     return PageController.extend("rental.equipment.ext.controller.MaintenancePlanner", {
@@ -51,11 +51,8 @@ sap.ui.define([
                     };
                 }).filter(Boolean);
 
-                const oPlannerModel = this.getView().getModel("planner");
-                oPlannerModel.setProperty("/appointments", aAppointments);
-                this.getView().byId("maintenanceCalendar").getBinding("appointments")?.refresh();
+                this.getView().getModel("planner").setProperty("/appointments", aAppointments);
             } catch (oError) {
-                MessageToast.show("Unable to load maintenance records");
                 // eslint-disable-next-line no-console
                 console.error("Maintenance planner load failed", oError);
             }
@@ -95,10 +92,13 @@ sap.ui.define([
                 return;
             }
             const oContext = oAppointment.getBindingContext("planner");
-            if (oContext) {
-                const oData = oContext.getObject();
-                MessageToast.show(oData.title + (oData.text ? " — " + oData.text : ""));
+            const oData = oContext && oContext.getObject();
+            if (!oData || !oData.ID) {
+                return;
             }
+
+            const oRouter = UIComponent.getRouterFor(this.getView());
+            oRouter.navTo("MaintenanceObjectPage", { key: oData.ID });
         }
     });
 });
