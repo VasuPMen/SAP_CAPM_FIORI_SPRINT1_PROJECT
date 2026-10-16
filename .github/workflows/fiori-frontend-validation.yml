@@ -38,3 +38,6 @@ jobs:
       - name: Build Fiori application
         working-directory: app/rental-equipment
         run: npx --yes @ui5/cli@4 build --clean-dest
+
+      - name: Validate MTA packaging
+        run: npx --yes mbt@1.2.29 build -p cf --mtar target.mtar
