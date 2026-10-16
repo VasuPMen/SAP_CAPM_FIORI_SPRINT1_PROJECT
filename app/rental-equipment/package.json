@@ -1,0 +1,16 @@
+{
+  "name": "rental-equipment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAP Fiori elements frontend for Equipment Rental Management",
+  "scripts": {
+    "start": "ui5 serve",
+    "build": "ui5 build --all --clean-dest"
+  },
+  "engines": {
+    "node": ">=22.6.0"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^4.0.0"
+  }
+}
