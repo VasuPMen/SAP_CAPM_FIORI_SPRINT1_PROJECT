@@ -19,7 +19,8 @@ sap.ui.define([
 
             try {
                 const oBinding = oModel.bindList("/MaintenanceRecords", undefined, undefined, undefined, {
-                    $select: "ID,maintenanceType,maintenanceDate,nextMaintenanceDate,status,description,serviceProvider,equipment_equipmentName"
+                    $select: "ID,maintenanceType,maintenanceDate,nextMaintenanceDate,status,description,serviceProvider",
+                    $expand: "equipment($select=equipmentName)"
                 });
                 const aContexts = await oBinding.requestContexts(0, 500);
                 const aAppointments = aContexts.map((oContext) => {
@@ -30,12 +31,13 @@ sap.ui.define([
                         return null;
                     }
                     const oSafeEnd = oEnd && oEnd > oStart ? oEnd : new Date(oStart.getTime() + 60 * 60 * 1000);
+                    const sEquipmentName = oData.equipment && oData.equipment.equipmentName;
                     return {
                         ID: oData.ID,
                         start: oStart,
                         end: oSafeEnd,
                         title: oData.maintenanceType || "Maintenance",
-                        text: [oData.status, oData.equipment_equipmentName].filter(Boolean).join(" • "),
+                        text: [oData.status, sEquipmentName].filter(Boolean).join(" • "),
                         type: this._appointmentType(oData.status),
                         description: oData.description,
                         serviceProvider: oData.serviceProvider
@@ -49,7 +51,6 @@ sap.ui.define([
                 });
             } catch (oError) {
                 MessageToast.show("Unable to load maintenance records");
-                // Keep the page usable even when the service is temporarily unavailable.
                 // eslint-disable-next-line no-console
                 console.error("Maintenance planner load failed", oError);
             }
